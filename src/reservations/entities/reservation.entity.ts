@@ -1,0 +1,49 @@
+import { ReservationsStatusEnum, PaymentMethodEnum } from "src/enums/reservations.enum";
+import { User } from "src/users/entities/user.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+
+
+@Entity()
+export class Reservation {
+
+    
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column()
+    startDate: Date;
+
+    @Column()
+    endDate: Date;
+
+    @Column()
+    price: number;
+
+    @Column({
+        type: 'enum',
+        enum: PaymentMethodEnum,
+        default: PaymentMethodEnum.CASH
+    })
+    paymentMethod: string;
+
+    @Column({
+        type: 'enum',
+        enum: ReservationsStatusEnum,
+        default:ReservationsStatusEnum.PENDING
+    })
+    status: string;
+
+    @ManyToOne(
+        () => User,
+        user => user.reservations,
+        {
+            cascade: true,
+            nullable: false,
+            eager: true
+        }
+        
+    )
+    user: User;
+
+    
+}
