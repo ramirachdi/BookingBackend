@@ -1,4 +1,5 @@
 import { ReservationsStatusEnum, PaymentMethodEnum } from "src/enums/reservations.enum";
+import { Listing } from "src/listings/entities/listing.entity";
 import { User } from "src/users/entities/user.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -44,6 +45,15 @@ export class Reservation {
         
     )
     user: User;
+
+    @ManyToOne(
+        () => Listing,
+        listing => listing.reservations,
+        {
+            nullable: false,
+        }
+    )
+    listing: Listing;
 
     
 }

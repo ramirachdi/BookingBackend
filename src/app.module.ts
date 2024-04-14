@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReservationsModule } from './reservations/reservations.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ListingsModule } from './listings/listings.module';
 import * as dotenv from 'dotenv'
 
 dotenv.config();
@@ -15,7 +16,7 @@ dotenv.config();
       type: 'mysql',
       host: process.env.HOST,
       port: parseInt(process.env.PORT),
-      username: process.env.USERNAME,
+      username: process.env.USER,
       password: process.env.PASSWORD,
       database: process.env.DATABASE,
       entities: ["dist/**/*.entity{.ts,.js}"],
@@ -25,6 +26,7 @@ dotenv.config();
     ReservationsModule,
     UsersModule,
     AuthModule,
+    ListingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

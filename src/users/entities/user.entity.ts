@@ -2,6 +2,7 @@ import { IsEmail } from "class-validator";
 import { CountryEnum } from "src/enums/countries.enum";
 import { LangaugesEnum } from "src/enums/languages.enum";
 import { UserRoleEnum } from "src/enums/user-role.enum";
+import { Listing } from "src/listings/entities/listing.entity";
 import { Reservation } from "src/reservations/entities/reservation.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -88,6 +89,17 @@ export class User {
         }
     )
     reservations: Reservation[]
+
+    @OneToMany(
+        () => Listing,
+        listing => listing.user,
+        {
+            cascade: true,
+            nullable: true,
+            eager: false
+        }
+    )
+    listings: Listing[]
 
     
     
