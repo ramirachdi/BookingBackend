@@ -1,26 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAccomodationDto } from './dto/create-accomodation.dto';
 import { UpdateAccomodationDto } from './dto/update-accomodation.dto';
+import { CrudService } from 'src/common/services/crud.service';
+import { Accomodation } from './entities/accomodation.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class AccomodationsService {
+export class AccomodationsService extends CrudService<Accomodation> {
+
+  constructor(
+    @InjectRepository(Accomodation)
+    private accomodationRepository: Repository<Accomodation>
+  ) { 
+    super(accomodationRepository)
+  }
+  
+  
   create(createAccomodationDto: CreateAccomodationDto) {
-    return 'This action adds a new accomodation';
+    return super.create(createAccomodationDto);
   }
 
   findAll() {
-    return `This action returns all accomodations`;
+    return super.findAll();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} accomodation`;
+    return super.findOne(id);
   }
 
   update(id: number, updateAccomodationDto: UpdateAccomodationDto) {
-    return `This action updates a #${id} accomodation`;
+    return super.update(id, updateAccomodationDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} accomodation`;
+    return super.remove(id);
   }
 }
