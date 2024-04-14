@@ -1,7 +1,9 @@
+import { Comment } from "src/comments/entities/comment.entity";
+import { Rating } from "src/ratings/entities/rating.entity";
 import { Reservation } from "src/reservations/entities/reservation.entity";
 import { User } from "src/users/entities/user.entity";
-import { Column, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+@Entity()
 export class Listing {
     @PrimaryGeneratedColumn()
     id: string;
@@ -50,5 +52,23 @@ export class Listing {
     )
     users:User[]
 
+    @OneToMany(
+        () => Rating,
+        rating => rating.listing,
+        {
+            
+        }
+    )
+    ratings: Rating[]
+
+    @OneToMany(
+        () => Comment,
+        (comment) => comment.listing,
+        {
+
+        }
+        
+    )
+    comments:Comment[]
 
 }

@@ -7,6 +7,9 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ListingsModule } from './listings/listings.module';
 import { AccomodationsModule } from './accomodations/accomodations.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { RatingsModule } from './ratings/ratings.module';
+import { CommentsModule } from './comments/comments.module';
 import * as dotenv from 'dotenv'
 
 dotenv.config();
@@ -29,6 +32,9 @@ dotenv.config();
     AuthModule,
     ListingsModule,
     AccomodationsModule,
+    NotificationsModule,
+    RatingsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,9 +1,12 @@
 import { IsEmail } from "class-validator";
 import { Accomodation } from "src/accomodations/entities/accomodation.entity";
+import { Comment } from "src/comments/entities/comment.entity";
 import { CountryEnum } from "src/enums/countries.enum";
 import { LangaugesEnum } from "src/enums/languages.enum";
 import { UserRoleEnum } from "src/enums/user-role.enum";
 import { Listing } from "src/listings/entities/listing.entity";
+import { Notification } from "src/notifications/entities/notification.entity";
+import { Rating } from "src/ratings/entities/rating.entity";
 import { Reservation } from "src/reservations/entities/reservation.entity";
 import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -122,7 +125,41 @@ export class User {
             eager: false
         }
     )
-        favoris: Listing[]
+    favoris: Listing[]
+    
+    @OneToMany(
+        () => Notification,
+        (notification) => notification.user,
+        {
+            eager: false,
+            nullable: true,
+            cascade:true
+        }
+    )
+    notifications: Notification[]
+    
+    @OneToMany(
+        () => Rating,
+        rating=> rating.user,
+        {
+            eager: false,
+            nullable: true,
+            cascade:true
+        }
+    )
+
+    ratings: Rating[]
+
+    @OneToMany(
+        () => Comment,
+        comment => comment.user,
+        {
+            eager: false,
+            nullable: true,
+            cascade:true
+        }
+    )
+    comments: Comment[]
     
     
 }
