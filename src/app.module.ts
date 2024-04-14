@@ -6,6 +6,7 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ListingsModule } from './listings/listings.module';
+import { AccomodationsModule } from './accomodations/accomodations.module';
 import * as dotenv from 'dotenv'
 
 dotenv.config();
@@ -27,6 +28,7 @@ dotenv.config();
     UsersModule,
     AuthModule,
     ListingsModule,
+    AccomodationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

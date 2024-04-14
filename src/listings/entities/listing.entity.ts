@@ -1,6 +1,6 @@
 import { Reservation } from "src/reservations/entities/reservation.entity";
 import { User } from "src/users/entities/user.entity";
-import { Column, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 export class Listing {
     @PrimaryGeneratedColumn()
@@ -37,7 +37,18 @@ export class Listing {
             eager: true
         }
     )
-    user: User
+    owner: User
+
+    @ManyToMany(
+        () => User,
+        user => user.favoris,
+        {
+            nullable: true,
+            cascade: true,
+            eager: true
+        }
+    )
+    users:User[]
 
 
 }
