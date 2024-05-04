@@ -2,22 +2,37 @@ import { Comment } from "src/comments/entities/comment.entity";
 import { Rating } from "src/ratings/entities/rating.entity";
 import { Reservation } from "src/reservations/entities/reservation.entity";
 import { User } from "src/users/entities/user.entity";
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Listing {
     @PrimaryGeneratedColumn()
     id: string;
 
     @Column()
-    isAvailable: boolean;
+    adress: string;
 
     @Column()
     price: number;
 
     @Column()
+    capacity: number
+
+    @Column()
+    rooms: number;
+
+    @Column()
+    bathrooms: number;
+
+    @Column()
+    type: string
+
+    @Column()
     title: String;
 
     @Column()
+    description: String;
+
+    @Column({default:0})
     rating: number
 
     @OneToMany(
@@ -38,7 +53,7 @@ export class Listing {
             eager: true
         }
     )
-    owner: User
+    host: User
 
     @ManyToMany(
         () => User,
@@ -48,13 +63,13 @@ export class Listing {
             eager: true
         }
     )
-    users:User[]
+    users: User[]
 
     @OneToMany(
         () => Rating,
         rating => rating.listing,
         {
-            
+
         }
     )
     ratings: Rating[]
@@ -65,8 +80,8 @@ export class Listing {
         {
 
         }
-        
+
     )
-    comments:Comment[]
+    comments: Comment[]
 
 }

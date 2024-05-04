@@ -1,12 +1,11 @@
 import { IsEmail } from "class-validator";
-import { Accomodation } from "src/accomodations/entities/accomodation.entity";
 import { Comment } from "src/comments/entities/comment.entity";
 import { UserRoleEnum } from "src/enums/user-role.enum";
 import { Listing } from "src/listings/entities/listing.entity";
 import { Notification } from "src/notifications/entities/notification.entity";
 import { Rating } from "src/ratings/entities/rating.entity";
 import { Reservation } from "src/reservations/entities/reservation.entity";
-import { Column, Entity, IsNull, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, IsNull, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -73,7 +72,7 @@ export class User {
 
     @OneToMany(
         () => Listing,
-        listing => listing.owner,
+        listing => listing.host,
         {
             cascade: true,
             nullable: true,
@@ -82,16 +81,6 @@ export class User {
     )
     listings: Listing[]
 
-    @OneToMany(
-        () => Accomodation,
-        accomodation => accomodation.user,
-        {
-            cascade: true,
-            nullable: true,
-            eager: false
-        }
-    )
-    accomodations: Accomodation[]
 
     @ManyToMany(
         () => Listing,
@@ -102,6 +91,7 @@ export class User {
             eager: false
         }
     )
+    @JoinTable()
     favoris: Listing[]
 
     @OneToMany(

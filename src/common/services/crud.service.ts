@@ -36,11 +36,11 @@ export class CrudService<Entity extends HasId> {
     return result;
   }
 
-  findAll(): Promise<Entity[]> {
-    return this.repository.find();
+  async findAll(): Promise<Entity[]> {
+    return await this.repository.find();
   }
 
-  findOne(id): Promise<Entity> {
-    return this.repository.findOneBy({ id });
+  async findOne(id): Promise<Entity> {
+    return await this.repository.findOneBy({id}  );
   }
 }
