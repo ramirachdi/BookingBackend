@@ -25,7 +25,7 @@ export class AuthService {
 
 
     try {
-    await this.userRepository.save(user);
+      await this.userRepository.save(user);
     } catch (e) {
       throw new ConflictException(`le mail doit etre unique`);
     }
@@ -40,23 +40,22 @@ export class AuthService {
   async login(credentials: LoginCredentialsDto) {
     const { login, password } = credentials;
     const user = await this.userRepository.createQueryBuilder("user")
-      .where("user.name = :login or user.email= :login",
+      .where("user.email= :login",
         { login })
       .getOne();
     if (!user) {
-      throw new NotFoundException('username ou password erronée');
+      throw new NotFoundException('email ou password erronée');
     }
-    //const hashedPassword = await bcrypt.hash(password, user.salt);
     const match = await bcrypt.compare(password, user.password)
     if (match) {
       const payload = {
-        username: user.name,
+        name: user.name,
         email: user.email,
         role: user.role,
       }
       const jwt = await this.jwtService.sign(payload);
       return {
-        "access_token": jwt
+        "token": jwt
       }
     } else {
       throw new NotFoundException('username ou password erronée');
