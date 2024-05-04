@@ -38,9 +38,9 @@ export class Reservation {
         () => User,
         user => user.reservations,
         {
-            cascade: true,
+            
             nullable: false,
-            eager: true
+
         }
         
     )

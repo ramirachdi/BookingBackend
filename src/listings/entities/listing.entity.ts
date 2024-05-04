@@ -35,7 +35,6 @@ export class Listing {
         user => user.listings,
         {
             nullable: false,
-            cascade: true,
             eager: true
         }
     )
@@ -46,7 +45,6 @@ export class Listing {
         user => user.favoris,
         {
             nullable: true,
-            cascade: true,
             eager: true
         }
     )

@@ -1,4 +1,3 @@
-import { AccomodationEnum } from "src/enums/accomodation.enum";
 import { User } from "src/users/entities/user.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, } from "typeorm";
 @Entity()
@@ -22,10 +21,7 @@ export class Accomodation {
     @Column()
     surface: number
     
-    @Column({
-        type: 'enum',
-        enum:AccomodationEnum,
-    })
+    @Column()
     type: string
     
     @ManyToOne(

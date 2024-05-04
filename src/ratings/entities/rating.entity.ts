@@ -1,7 +1,8 @@
 import { Listing } from "src/listings/entities/listing.entity";
 import { User } from "src/users/entities/user.entity";
-import { Column, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class Rating {
     @PrimaryGeneratedColumn()
     id: string;
@@ -13,7 +14,8 @@ export class Rating {
         () => User,
         (user) => user.ratings,
         {
-
+            eager:false,
+            nullable: false,
         }
     )
     user: User

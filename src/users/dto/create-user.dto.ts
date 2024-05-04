@@ -3,7 +3,7 @@ import { UserRoleEnum } from "../../enums/user-role.enum";
 
 export class CreateUserDto {
     @IsNotEmpty()
-    username: string;
+    name: string;
 
     @IsNotEmpty()
     @IsEmail()
@@ -14,12 +14,6 @@ export class CreateUserDto {
 
     @IsOptional()
     role: UserRoleEnum;
-    
-    @IsNotEmpty()
-    firstName: string;
-
-    @IsNotEmpty()
-    lastName: string;
 
     @IsOptional()
     avatr_url: string;
@@ -27,12 +21,7 @@ export class CreateUserDto {
     @IsNotEmpty()
     phoneNumber: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     dob: Date;
 
-    @IsNotEmpty()
-    country: string;
-
-    @IsNotEmpty()
-    languages: [string]
 }
