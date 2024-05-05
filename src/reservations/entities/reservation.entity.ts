@@ -7,7 +7,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Reservation {
 
-    
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -30,7 +30,7 @@ export class Reservation {
     @Column({
         type: 'enum',
         enum: ReservationsStatusEnum,
-        default:ReservationsStatusEnum.PENDING
+        default: ReservationsStatusEnum.PENDING
     })
     status: string;
 
@@ -38,11 +38,11 @@ export class Reservation {
         () => User,
         user => user.reservations,
         {
-            
+
             nullable: false,
 
         }
-        
+
     )
     user: User;
 
@@ -51,9 +51,10 @@ export class Reservation {
         listing => listing.reservations,
         {
             nullable: false,
+            eager: true,
         }
     )
     listing: Listing;
 
-    
+
 }

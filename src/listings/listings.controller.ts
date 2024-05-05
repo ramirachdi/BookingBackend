@@ -6,6 +6,7 @@ import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { CurrentUser } from 'src/decorators/user.decorator';
 import { User } from 'src/users/entities/user.entity';
 
+
 @Controller('listings')
 export class ListingsController {
   constructor(private readonly listingsService: ListingsService) { }
@@ -13,11 +14,18 @@ export class ListingsController {
 
 
   @Get()
-  async findAll(
-  
+  async findByCriteria(
+    @Body() data
   ) {
-    
-    return  this.listingsService.findAll();
+    return this.listingsService.findByCriteria(data);
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('user')
+  findByUser(
+    @CurrentUser() user: User,
+  ) {
+    return this.listingsService.findByUser(user);
   }
 
   @Get(':id')

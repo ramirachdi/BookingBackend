@@ -32,10 +32,10 @@ export class Listing {
     @Column()
     description: String;
 
-    @Column({default:0})
+    @Column({ default: 0 })
     rating: number
 
-    @Column({ default: null})
+    @Column({ default: null })
     image_url: String;
 
     @OneToMany(
@@ -43,6 +43,7 @@ export class Listing {
         (reservation) => reservation.listing,
         {
             nullable: true,
+            eager: false,
 
         }
     )
@@ -63,7 +64,7 @@ export class Listing {
         user => user.favoris,
         {
             nullable: true,
-            eager: true
+            eager: true,
         }
     )
     users: User[]
