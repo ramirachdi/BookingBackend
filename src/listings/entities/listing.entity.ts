@@ -9,7 +9,7 @@ export class Listing {
     id: string;
 
     @Column()
-    adress: string;
+    country: string;
 
     @Column()
     price: number;
@@ -34,6 +34,9 @@ export class Listing {
 
     @Column({default:0})
     rating: number
+
+    @Column({ default: null})
+    image_url: String;
 
     @OneToMany(
         () => Reservation,

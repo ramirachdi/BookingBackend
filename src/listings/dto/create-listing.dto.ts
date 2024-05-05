@@ -3,7 +3,7 @@ import { IsNotEmpty } from "class-validator";
 export class CreateListingDto {
 
     @IsNotEmpty()
-    adress: string;
+    country: string;
 
     @IsNotEmpty()
     price: number;
@@ -25,5 +25,8 @@ export class CreateListingDto {
 
     @IsNotEmpty()
     description: String;
+
+    @IsNotEmpty()
+    image_url: String;
 
 }
