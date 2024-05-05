@@ -26,8 +26,8 @@ export class ListingsService extends CrudService<Listing> {
   }
 
 
-  async findByCriteria(criteria): Promise<Listing[]> {
-    let qb = await this.listingRepository.createQueryBuilder('listing');
+   findByCriteria(criteria): Promise<Listing[]> {
+    let qb =  this.listingRepository.createQueryBuilder('listing');
     if (criteria.startDate && criteria.endDate) {
       qb.leftJoinAndSelect("listing.reservations", "reservation")
         .andWhere(`NOT (
@@ -57,7 +57,6 @@ export class ListingsService extends CrudService<Listing> {
     if (criteria.type) {
       qb.andWhere("listing.type = :type", { type: criteria.type })
     }
-
     return qb.getMany();
   }
 
