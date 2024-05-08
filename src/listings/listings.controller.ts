@@ -47,6 +47,7 @@ export class ListingsController {
     return this.listingsService.update(id, updateListingDto);
   }
 
+  @UseGuards(JwtGuard)
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.listingsService.remove(id);

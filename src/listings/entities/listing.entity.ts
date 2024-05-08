@@ -1,10 +1,11 @@
 import { Comment } from "src/comments/entities/comment.entity";
+import { TimestampEntities } from "src/common/entities/timestamp.entity";
 import { Rating } from "src/ratings/entities/rating.entity";
 import { Reservation } from "src/reservations/entities/reservation.entity";
 import { User } from "src/users/entities/user.entity";
 import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
-export class Listing {
+export class Listing extends TimestampEntities {
     @PrimaryGeneratedColumn()
     id: string;
 
@@ -44,6 +45,7 @@ export class Listing {
         {
             nullable: true,
             eager: false,
+            cascade: true,
 
         }
     )
