@@ -22,6 +22,7 @@ export class UsersService extends CrudService<User> {
   findOne(id: number) {
     return super.findOne(id);
   }
+  
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return super.update(id, updateUserDto);

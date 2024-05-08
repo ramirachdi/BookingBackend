@@ -1,5 +1,6 @@
 import { IsEmail } from "class-validator";
 import { Comment } from "src/comments/entities/comment.entity";
+import { Conversation } from "src/conversations/entities/conversation.entity";
 import { UserRoleEnum } from "src/enums/user-role.enum";
 import { Listing } from "src/listings/entities/listing.entity";
 import { Notification } from "src/notifications/entities/notification.entity";
@@ -32,7 +33,7 @@ export class User {
         default: 'https://res.cloudinary.com/smtanimur/image/upload/v1658841812/mushfiqTanim/user_qcrqny_kcgfes.svg',
 
     })
-    avatr_url: string;
+    avatar_url: string;
 
     @Column()
     phoneNumber: string;
@@ -65,7 +66,7 @@ export class User {
         {
             cascade: true,
             nullable: true,
-            eager: true
+            eager: false,
         }
     )
     reservations: Reservation[]
@@ -93,6 +94,19 @@ export class User {
     )
     @JoinTable()
     favoris: Listing[]
+
+    @ManyToMany(
+        () => Conversation,
+        conversation => conversation.members,
+        {
+
+            nullable: true,
+            eager: false,
+        }
+    )
+
+    conversations: Conversation[]
+
 
     @OneToMany(
         () => Notification,

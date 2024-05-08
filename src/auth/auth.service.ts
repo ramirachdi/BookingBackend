@@ -55,7 +55,9 @@ export class AuthService {
       }
       const jwt = await this.jwtService.sign(payload);
       return {
-        "token": jwt
+        "token": jwt,
+        "userId": user.id,
+      
       }
     } else {
       throw new NotFoundException('username ou password erronée');

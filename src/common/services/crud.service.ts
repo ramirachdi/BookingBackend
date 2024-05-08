@@ -40,7 +40,7 @@ export class CrudService<Entity extends HasId> {
     return await this.repository.find();
   }
 
-  async findOne(id): Promise<Entity> {
-    return await this.repository.findOneBy({id}  );
+  async findOne(id ): Promise<Entity> {
+    return await this.repository.findOneBy( { id:id } );
   }
 }

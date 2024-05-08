@@ -9,25 +9,25 @@ export class Rating {
 
     @Column()
     value: number
-    
+
     @ManyToOne(
         () => User,
         (user) => user.ratings,
         {
-            eager:false,
+            eager: false,
             nullable: false,
         }
     )
     user: User
 
-    @OneToOne(
+    @ManyToOne(
         () => Listing,
         listing => listing.ratings,
         {
             nullable: false,
             eager: true
         }
-        
+
     )
     listing: Listing
 }

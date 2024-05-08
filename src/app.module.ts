@@ -9,6 +9,9 @@ import { ListingsModule } from './listings/listings.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { RatingsModule } from './ratings/ratings.module';
 import { CommentsModule } from './comments/comments.module';
+import { ChatGateway } from './chat/chat.gateway';
+import { ConversationsModule } from './conversations/conversations.module';
+import { MessagesModule } from './messages/messages.module';
 import * as dotenv from 'dotenv'
 
 dotenv.config();
@@ -25,6 +28,7 @@ dotenv.config();
       entities: ["dist/**/*.entity{.ts,.js}"],
       synchronize: true,
       autoLoadEntities: true,
+      // logging:true,
     }),
     ReservationsModule,
     UsersModule,
@@ -33,8 +37,10 @@ dotenv.config();
     NotificationsModule,
     RatingsModule,
     CommentsModule,
+    ConversationsModule,
+    MessagesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ChatGateway],
 })
 export class AppModule { }
