@@ -39,7 +39,7 @@ export class MessagesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.messagesService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.messagesService.delete(id);
   }
 }

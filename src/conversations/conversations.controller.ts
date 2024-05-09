@@ -13,8 +13,8 @@ export class ConversationsController {
   @UseGuards(JwtGuard)
   @Post()
   create(
-    @CurrentUser() user:User,
-    @Body() receiver ) {
+    @CurrentUser() user: User,
+    @Body() receiver) {
     return this.conversationsService.createConversation(user, receiver);
   }
 
@@ -26,7 +26,7 @@ export class ConversationsController {
   @UseGuards(JwtGuard)
   @Get("current")
   findConvos(
-    @CurrentUser() user:User,
+    @CurrentUser() user: User,
     @Param('userId') id: number) {
     return this.conversationsService.getConvoUsers(user);
   }
@@ -37,7 +37,7 @@ export class ConversationsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.conversationsService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.conversationsService.delete(id);
   }
 }

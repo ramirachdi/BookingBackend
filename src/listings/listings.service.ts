@@ -7,13 +7,19 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { GetListingDto } from './dto/get-listing.dto';
+import { Reservation } from 'src/reservations/entities/reservation.entity';
 
 @Injectable()
 export class ListingsService extends CrudService<Listing> {
 
   constructor(
     @InjectRepository(Listing)
-    private listingRepository: Repository<Listing>
+    private listingRepository: Repository<Listing>,
+
+    @InjectRepository(Reservation)
+    private readonly reservationRepository: Repository<Reservation>,
+
+
   ) {
     super(listingRepository)
   }
@@ -64,6 +70,26 @@ export class ListingsService extends CrudService<Listing> {
     return this.listingRepository.find({ where: { host: { id: user.id } } });
   }
 
+  async getFavorites(user: User) {
+    const favorites = await this.listingRepository.createQueryBuilder('listing')
+      .leftJoinAndSelect('listing.users', 'user')
+      .where('user.id = :id', { id: user.id })
+      .getMany();
+    return favorites;
+  }
+
+  async addFavorite(user: User, listingId: number) {
+    const listing = await this.listingRepository.findOneBy({ id: listingId });
+    listing.users = [...listing.users, user];
+    return await this.listingRepository.save(listing);
+  }
+
+  async deleteFavorite(user: User, listingId: number) {
+    const listing = await this.listingRepository.findOneBy({ id: listingId });
+    listing.users = listing.users.filter(u => u.id != user.id);
+    return await this.listingRepository.save(listing);
+  }
+
   findOne(id: number) {
     return super.findOne(id);
   }
@@ -72,7 +98,9 @@ export class ListingsService extends CrudService<Listing> {
     return super.update(id, updateListingDto);
   }
 
-  remove(id: number) {
-    return super.remove(id);
+  async delete(id: number) {
+    const listing = await this.listingRepository.findOneBy({ id });
+    this.reservationRepository.delete({ listing: { id: listing.id } });
+    return super.remove(listing);
   }
 }

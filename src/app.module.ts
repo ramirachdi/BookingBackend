@@ -28,7 +28,7 @@ dotenv.config();
       entities: ["dist/**/*.entity{.ts,.js}"],
       synchronize: true,
       autoLoadEntities: true,
-      // logging:true,
+      logging: true,
     }),
     ReservationsModule,
     UsersModule,

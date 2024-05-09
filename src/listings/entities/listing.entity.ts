@@ -7,7 +7,7 @@ import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColum
 @Entity()
 export class Listing extends TimestampEntities {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column()
     country: string;

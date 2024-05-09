@@ -4,7 +4,7 @@ import { HasId } from '../interfaces/hasId.interface';
 
 @Injectable()
 export class CrudService<Entity extends HasId> {
-  constructor(private repository: Repository<Entity>) {}
+  constructor(private repository: Repository<Entity>) { }
 
   create(entity: DeepPartial<Entity>): Promise<Entity> {
     return this.repository.save(entity);
@@ -21,11 +21,8 @@ export class CrudService<Entity extends HasId> {
     return this.repository.save(entity);
   }
 
-  async remove(id: number): Promise<UpdateResult> {
-    const result = await this.repository.softDelete(id);
-    if (!result.affected) {
-      throw new NotFoundException('entity Not Found');
-    }
+  async remove(entity: Entity) {
+    const result = await this.repository.softRemove(entity);
     return result;
   }
   async restore(id: number): Promise<UpdateResult> {
@@ -40,7 +37,7 @@ export class CrudService<Entity extends HasId> {
     return await this.repository.find();
   }
 
-  async findOne(id ): Promise<Entity> {
-    return await this.repository.findOneBy( { id:id } );
+  async findOne(id): Promise<Entity> {
+    return await this.repository.findOneBy({ id: id });
   }
 }

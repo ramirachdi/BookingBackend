@@ -70,7 +70,8 @@ export class MessagesService extends CrudService<Message> {
     return super.update(id, updateMessageDto);
   }
 
-  remove(id: number) {
-    return super.remove(id);
+  async delete(id: number) {
+   const message = await this.messageRepository.findOneBy({id})
+    return super.remove(message);
   }
 }

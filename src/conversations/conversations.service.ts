@@ -52,7 +52,8 @@ export class ConversationsService extends CrudService<Conversation> {
     return super.update(id, updateConversationDto);
   }
 
-  remove(id: number) {
-    return super.remove(id);
+  async delete(id: number) {
+    const converstaion = await this.conversationRepository.findOne({ where: { id } });
+    return super.remove(converstaion);
   }
 }

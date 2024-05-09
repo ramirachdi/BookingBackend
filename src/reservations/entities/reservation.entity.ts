@@ -1,3 +1,4 @@
+import { TimestampEntities } from "src/common/entities/timestamp.entity";
 import { ReservationsStatusEnum, PaymentMethodEnum } from "src/enums/reservations.enum";
 import { Listing } from "src/listings/entities/listing.entity";
 import { User } from "src/users/entities/user.entity";
@@ -5,7 +6,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
-export class Reservation {
+export class Reservation extends TimestampEntities {
 
 
     @PrimaryGeneratedColumn()

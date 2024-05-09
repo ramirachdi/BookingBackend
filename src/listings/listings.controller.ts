@@ -28,6 +28,33 @@ export class ListingsController {
     return this.listingsService.findByUser(user);
   }
 
+  @UseGuards(JwtGuard)
+  @Get('user/favorites')
+  getFavorites(@CurrentUser() user: User) {
+    return this.listingsService.getFavorites(user);
+  }
+
+
+  @UseGuards(JwtGuard)
+  @Post('user/favorites/:listingId')
+  addFav(
+    @Param('listingId') listingId: number,
+    @CurrentUser() user: User
+  ) {
+    return this.listingsService.addFavorite(user, listingId);
+  }
+
+  @UseGuards(JwtGuard)
+  @Delete('user/favorites/:listingId')
+  deleteFav(
+    @Param('listingId') listingId: number,
+    @CurrentUser() user: User
+  ) {
+    return this.listingsService.deleteFavorite(user, listingId);
+  }
+
+
+
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.listingsService.findOne(id);
@@ -50,6 +77,7 @@ export class ListingsController {
   @UseGuards(JwtGuard)
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return this.listingsService.remove(id);
+    return this.listingsService.delete(id);
   }
+
 }
