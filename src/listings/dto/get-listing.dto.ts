@@ -20,5 +20,8 @@ export class GetListingDto {
     @IsOptional()
     type: string;
 
+    @IsOptional()
+    isAdminContext : boolean ;
+
 
 }

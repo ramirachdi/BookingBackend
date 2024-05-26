@@ -63,6 +63,9 @@ export class ListingsService extends CrudService<Listing> {
     if (criteria.type) {
       qb.andWhere("listing.type = :type", { type: criteria.type })
     }
+    if(!criteria.isAdminContext || criteria.isAdminContext == false){
+      qb.andWhere("listing.isValid = true")
+    }
     return qb.getMany();
   }
 

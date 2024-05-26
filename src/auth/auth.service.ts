@@ -27,7 +27,7 @@ export class AuthService {
     try {
       await this.userRepository.save(user);
     } catch (e) {
-      throw new ConflictException(`le mail doit etre unique`);
+      throw new ConflictException(`An account was already created with this mail`);
     }
     return {
       id: user.id,
@@ -44,10 +44,15 @@ export class AuthService {
         { login })
       .getOne();
     if (!user) {
-      throw new NotFoundException('email ou password erronée');
+      throw new NotFoundException('Wrong credentials');
     }
     const match = await bcrypt.compare(password, user.password)
     if (match) {
+      if (!user.isValid) {
+        throw new NotFoundException(
+          "The user you're trying to log in with is currently disabled , please reach out to an admin"
+        )
+      }
       const payload = {
         name: user.name,
         email: user.email,
@@ -57,10 +62,10 @@ export class AuthService {
       return {
         "token": jwt,
         "userId": user.id,
-      
+        "userRole": user.role,
       }
     } else {
-      throw new NotFoundException('username ou password erronée');
+      throw new NotFoundException('Wrong credentials');
     }
   }
 }

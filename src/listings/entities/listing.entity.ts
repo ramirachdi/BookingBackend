@@ -39,6 +39,11 @@ export class Listing extends TimestampEntities {
     @Column({ default: null })
     image_url: String;
 
+    @Column({
+        default : true
+    })
+    isValid : boolean;
+
     @OneToMany(
         () => Reservation,
         (reservation) => reservation.listing,

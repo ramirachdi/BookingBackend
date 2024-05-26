@@ -1,4 +1,4 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreateListingDto {
 
@@ -28,5 +28,8 @@ export class CreateListingDto {
 
     @IsNotEmpty()
     image_url: String;
+
+    @IsOptional()
+    isValid: boolean;
 
 }

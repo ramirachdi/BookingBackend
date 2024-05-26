@@ -24,4 +24,6 @@ export class CreateUserDto {
     @IsOptional()
     dob: Date;
 
+    @IsOptional()
+    isValid : boolean ;
 }
