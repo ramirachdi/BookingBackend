@@ -56,13 +56,4 @@ export class ReservationsController {
     return this.reservationsService.deleteReservation(id,user);
   }
 
-@Sse('sse')
-sse(): Observable<MessageEvent> {
-return fromEvent(this.eventEmitter, APP_EVENTS.todo.add).pipe(
-map((payload) => {
-console.log({ payload });
-return new MessageEvent('new-todo', { data: payload });
-}),
-);
-
 }

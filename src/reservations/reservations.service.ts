@@ -54,14 +54,14 @@ export class ReservationsService {
   }
 
   async deleteReservation(id: number, user: User) {
-    const reservation = await this.reservationRepository.findOne({ where: { id, user } });
+    const res = await this.reservationRepository.findOne({ where: { id, user } });
     const deleted_resv= await this.reservationRepository.delete(id);
     this.eventEmitter.emit(
       'reservation.deleted', 
       {
-        reservation: reservation,
+        reservation: res,
         user: user,
-        listing: reservation.listing
+        listing: res.listing
       }
     );
     return deleted_resv;

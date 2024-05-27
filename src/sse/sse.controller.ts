@@ -3,6 +3,8 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CurrentUser } from 'src/decorators/user.decorator';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { User } from 'src/users/entities/user.entity';
+import { fromEvent, merge, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 
@@ -20,14 +22,13 @@ export class SseController {
         return merge(reservation_confirmed$, reservation_cancelled$).pipe(
             map((payload) => {
                 const { reservation, user, listing } = payload;
-                const notification = true;
-                if (SubscribedUser.id === { listing.host }) {
-                    return ({ data: { notification } });
-
+    
+                if (SubscribedUser.id === listing.host || user.id === SubscribedUser.id) {
+                    const notification = 'true';
+                    return ( { data: { notification } });
                 }
-                if (payload['userId'] === SubscribedUser.id) {
-                    return ({ data: { notification } });
-                }
+                const notification ='false' ;
+                return ( { data: { notification } });
 
             }),
         );
