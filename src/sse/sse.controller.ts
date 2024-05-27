@@ -6,31 +6,29 @@ import { User } from 'src/users/entities/user.entity';
 import { fromEvent, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-
-
-
 @UseGuards(JwtGuard)
 @Controller('sse')
 export class SseController {
-    constructor(private readonly eventEmitter: EventEmitter2) { }
+  constructor(private readonly eventEmitter: EventEmitter2) {}
 
-    @Sse()
-    sse(@CurrentUser() SubscribedUser: User): Observable<MessageEvent> {
-        const reservation_confirmed$ = fromEvent(this.eventEmitter, 'reservation.created');
-        const reservation_cancelled$ = fromEvent(this.eventEmitter, 'reservation.deleted');
+  @Sse()
+  sse(@CurrentUser() SubscribedUser: User): Observable<MessageEvent> {
+    const reservation_event = fromEvent(this.eventEmitter, 'reservation.**');
 
-        return merge(reservation_confirmed$, reservation_cancelled$).pipe(
-            map((payload) => {
-                const { reservation, user, listing } = payload;
-    
-                if (SubscribedUser.id === listing.host || user.id === SubscribedUser.id) {
-                    const notification = 'true';
-                    return ( { data: { notification } });
-                }
-                const notification ='false' ;
-                return ( { data: { notification } });
+    return reservation_event.pipe(
+      map((payload : any) => {
+        const { reservation, user, listing } = payload;
 
-            }),
-        );
-    }
+        if (
+          SubscribedUser.id === listing.host ||
+          user.id === SubscribedUser.id
+        ) {
+          const notification = 'true';
+          return new MessageEvent('event', { data: { notification } });
+        }
+        const notification = 'false';
+        return new MessageEvent('event', { data: { notification } });
+      }),
+    );
+  }
 }
