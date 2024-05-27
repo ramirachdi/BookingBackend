@@ -12,6 +12,8 @@ import { CommentsModule } from './comments/comments.module';
 import { ChatGateway } from './chat/chat.gateway';
 import { ConversationsModule } from './conversations/conversations.module';
 import { MessagesModule } from './messages/messages.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { SseModule } from './sse/sse.module';
 import * as dotenv from 'dotenv'
 
 dotenv.config();
@@ -39,6 +41,8 @@ dotenv.config();
     CommentsModule,
     ConversationsModule,
     MessagesModule,
+    EventEmitterModule.forRoot(),
+    SseModule,
   ],
   controllers: [AppController],
   providers: [AppService, ChatGateway],

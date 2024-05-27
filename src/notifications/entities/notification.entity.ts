@@ -9,14 +9,9 @@ export class Notification {
     @Column()
     content: string
     
-    @Column()
+    @Column({default : false})
+    
     isSeen: boolean
-    
-    @Column()
-    link: string
-    
-    @Column()
-    type: string
     
     @ManyToOne(
         () => User,
