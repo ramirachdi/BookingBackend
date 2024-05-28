@@ -15,7 +15,7 @@ export class Comment {
         () => User,
         user => user.comments,
         {
-            eager: false,
+            eager: true,
             nullable: false,
         }
     )

@@ -40,9 +40,9 @@ export class Listing extends TimestampEntities {
     image_url: String;
 
     @Column({
-        default : true
+        default: true
     })
-    isValid : boolean;
+    isValid: boolean;
 
     @OneToMany(
         () => Reservation,
@@ -89,7 +89,7 @@ export class Listing extends TimestampEntities {
         () => Comment,
         (comment) => comment.listing,
         {
-
+            eager: true
         }
 
     )
